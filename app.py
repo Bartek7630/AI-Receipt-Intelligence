@@ -7,7 +7,7 @@ import pandas as pd
 st.set_page_config(page_title="Receipt Intelligence System", layout="wide")
 
 
-API_KEY = "AIzaSyCvU1-i3n8MpyvE1RPZBImkVURHgZzlWIs" 
+API_KEY = st.secrets["GOOGLE_API_KEY"]
 genai.configure(api_key=API_KEY)
 
 model = genai.GenerativeModel('gemini-2.5-flash')
