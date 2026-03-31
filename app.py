@@ -6,7 +6,6 @@ import pandas as pd
 
 st.set_page_config(page_title="Receipt Intelligence System", layout="wide")
 
-
 API_KEY = st.secrets["GOOGLE_API_KEY"]
 genai.configure(api_key=API_KEY)
 
@@ -29,7 +28,7 @@ if uploaded_file is not None:
             try:
                 prompt = """
                 Przeanalizuj załączony paragon. 
-                Zwróć wynik wyłącznie jako poprawny plik JSON (bez znaczników formatowania markdown),
+                Zwróć wynik wyłącznie jako poprawny plik JSON,
                 zgodnie z poniższą strukturą. Zignoruj zwroty kaucji przy podliczaniu sumy, znajdź ostateczną kwotę do zapłaty.
                 
                 {
@@ -44,14 +43,22 @@ if uploaded_file is not None:
                 }
                 """
                 
-                response = model.generate_content([prompt, img])
-                wynik_json = json.loads(response.text.strip())
+                response = model.generate_content(
+                    [prompt, img],
+                    generation_config={"response_mime_type": "application/json"}
+                )
+                
+                surowy_tekst = response.text.strip()
+                surowy_tekst = surowy_tekst.replace("```json", "").replace("```JSON", "").replace("```", "").strip()
+                
+                wynik_json = json.loads(surowy_tekst)
                 
                 try:
                     suma_str = str(wynik_json.get("suma", "0")).replace(",", ".").replace(" ", "").replace("PLN", "")
                     wynik_json["suma"] = f"{float(suma_str):.2f}"
                 except ValueError:
-                    pass                
+                    pass 
+                
                 produkty = wynik_json.get("produkty", [])
                 for prod in produkty:
                     try:
@@ -92,3 +99,5 @@ if uploaded_file is not None:
 
             except Exception as e:
                 st.error(f"Wystąpił błąd podczas analizy dokumentu: {e}")
+                st.info("Log debugowania:")
+                st.code(response.text)
