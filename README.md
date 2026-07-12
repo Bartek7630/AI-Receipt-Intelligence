@@ -4,24 +4,24 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B.svg)](https://streamlit.io/)
 [![Gemini API](https://img.shields.io/badge/AI-Google%20Gemini%202.5%20Flash-orange.svg)](https://aistudio.google.com/)
 
-Nowoczesna aplikacja webowa (End-to-End) do automatycznej ekstrakcji i ustrukturyzowania danych z dokumentów księgowych i paragonów. 
+A modern, end-to-end web application for automatically extracting and structuring data from receipts and accounting documents.
 
-## Główne funkcjonalności
+## Key Features
 
-* **Rozumienie Kontekstowe (Zero-Regex):** Zamiast szukać słów kluczowych, system "patrzy" na zdjęcie i rozumie jego strukturę. Bez problemu radzi sobie z pogniecionymi, krzywymi paragonami oraz "rozstrzelonym" tekstem (np. paragony z Biedronki).
-* **Ekstrakcja Danych Biznesowych:** Automatycznie wyciąga kluczowe dla księgowości informacje:
-  * Nazwa sklepu
-  * Numer NIP (identyfikator podatkowy)
-  * Data transakcji
-  * Ostateczna kwota do zapłaty (z pominięciem kaucji i podsumowań VAT)
-  * Pełna, zdekodowana lista zakupionych produktów wraz z ich cenami.
-* **Standaryzacja Danych:** Automatyczne formatowanie kwot do standardu finansowego (dwa miejsca po przecinku, kropka zamiast przecinka).
-* **Eksport do JSON:** Możliwość pobrania czystego pliku `.json` gotowego do integracji z systemami ERP lub oprogramowaniem księgowym.
-* **Interaktywny UI:** Czysty i responsywny interfejs użytkownika zbudowany w bibliotece Streamlit.
+* **Context-Based Understanding (Zero-Regex):** Instead of searching for keywords, the system "looks" at the image and understands its structure. It handles crumpled, skewed receipts and "scattered" text layouts (e.g. receipts from Polish discount grocery chains) without issues.
+* **Business Data Extraction:** Automatically extracts information critical for accounting:
+  * Store name
+  * Tax ID number (NIP)
+  * Transaction date
+  * Final amount due (excluding deposits and VAT summary lines)
+  * Full, decoded list of purchased items with their prices
+* **Data Standardization:** Automatically formats amounts to a consistent financial standard (two decimal places, period instead of comma).
+* **JSON Export:** Download a clean `.json` file ready for integration with ERP systems or accounting software.
+* **Interactive UI:** Clean, responsive user interface built with Streamlit.
 
-## Stack Technologiczny
+## Tech Stack
 
-* **Język:** Python
+* **Language:** Python
 * **Frontend / Framework:** Streamlit
 * **AI / VLM:** Google Generative AI (Model: `gemini-2.5-flash`)
-* **Przetwarzanie danych:** Pandas, JSON, PIL (Pillow)
+* **Data Processing:** Pandas, JSON, PIL (Pillow)
